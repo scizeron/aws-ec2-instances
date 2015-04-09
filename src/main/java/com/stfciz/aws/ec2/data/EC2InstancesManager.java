@@ -48,6 +48,7 @@ public class EC2InstancesManager {
 
   /**
    *
+   * @throws java.io.IOException
    */
   public EC2InstancesManager() throws IOException {
     loadCredentials();
@@ -69,7 +70,7 @@ public class EC2InstancesManager {
 
   /**
    *
-   * @param instanceId
+   * @param instanceIds
    */
   public void startInstance(String[] instanceIds) {
     StartInstancesRequest request = new StartInstancesRequest();
@@ -79,7 +80,7 @@ public class EC2InstancesManager {
 
   /**
    *
-   * @param instanceId
+   * @param instanceIds
    */
   public void stopInstance(String[] instanceIds) {
     StopInstancesRequest request = new StopInstancesRequest();
@@ -162,6 +163,7 @@ public class EC2InstancesManager {
       for (Instance instance : instances) {
         EC2Instance ec2Instance = new EC2Instance();
         ec2Instance.setId(instance.getInstanceId());
+        ec2Instance.setPublicDnsName(instance.getPublicDnsName());
         List<Tag> tags = instance.getTags();
 
         if (tags != null && !tags.isEmpty()) {
